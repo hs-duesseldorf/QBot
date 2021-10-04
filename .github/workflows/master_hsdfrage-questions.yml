@@ -50,5 +50,5 @@ jobs:
         with:
           app-name: 'hsdfrage-questions'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D0BE38EF08B74FC1BD5D66749D4A4A16 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_75B038286363446BBEE16D63A12FB8AE }}
           package: .
