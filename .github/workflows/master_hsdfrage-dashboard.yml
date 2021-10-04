@@ -15,24 +15,37 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          dotnet-version: '3.1.301'
-          include-prerelease: true
-
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+          node-version: '12'
+          cache: 'npm'
+          cache-dependency-path: /Source/DashboardTabApp/package-lock.json
+          
+      - run: npm install
+      - run: npm run ng test
+      - run: npm run ng build --prod
+      - uses: actions/upload-artifact@v2
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: my-artifact
+          path: /Source/DashboardTabApp/wwwroot
+      #- name: Set up .NET Core
+      #  uses: actions/setup-dotnet@v1
+      #  with:
+      #    dotnet-version: '3.1.301'
+      #    include-prerelease: true
+
+      #- name: Build with dotnet
+      #  run: dotnet build --configuration Release
+
+      #- name: dotnet publish
+      #  run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+      #- name: Upload artifact for deployment job
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: .net-app
+      #    path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
