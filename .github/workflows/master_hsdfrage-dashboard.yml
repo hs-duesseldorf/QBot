@@ -31,8 +31,8 @@ jobs:
       
       - uses: actions/upload-artifact@v2
         with:
-          name: my-artifact
-          path: /Source/DashboardTabApp/wwwroot
+          name: hsdfrage-dashboard
+          path: Source/DashboardTabApp/wwwroot
 
   deploy:
     runs-on: windows-latest
