@@ -2,7 +2,7 @@ defaults:
   run:
     working-directory: Source/QuestionsTabApp
 
-name: Build and deploy ASP.Net Core app to Azure Web App - hsdfrage-dashboard
+name: Build and deploy ASP.Net Core app to Azure Web App - hsdfrage-questions
 
 on:
   push:
