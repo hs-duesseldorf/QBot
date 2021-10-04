@@ -19,8 +19,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
-          cache: 'npm'
-          cache-dependency-path: /Source/DashboardTabApp/package-lock.json
+          path: /Source/DashboardTabApp/package-lock.json
           
       - run: npm install
       - run: npm run ng test
