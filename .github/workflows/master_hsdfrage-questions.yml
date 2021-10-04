@@ -1,38 +1,35 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+defaults:
+  run:
+    working-directory: Source/QuestionsTabApp
 
-name: Build and deploy ASP.Net Core app to Azure Web App - hsdfrage-questions
+name: Build and deploy ASP.Net Core app to Azure Web App - hsdfrage-dashboard
 
 on:
   push:
     branches:
       - master
+      
   workflow_dispatch:
-
+  
 jobs:
   build:
     runs-on: windows-latest
-
+    
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          dotnet-version: '3.1.301'
-          include-prerelease: true
-
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+          node-version: '12'
+    
+      - run: npm install
+      #- run: npm run ng test
+      - run: npm run ng build --prod
+      
+      - uses: actions/upload-artifact@v2
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: hsdfrage-questions
+          path: Source/QuestionsTabApp/wwwroot
 
   deploy:
     runs-on: windows-latest
@@ -45,7 +42,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: .net-app
+          name: hsdfrage-questions
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -53,5 +50,5 @@ jobs:
         with:
           app-name: 'hsdfrage-questions'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_75B038286363446BBEE16D63A12FB8AE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D0BE38EF08B74FC1BD5D66749D4A4A16 }}
           package: .
