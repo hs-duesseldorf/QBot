@@ -3,7 +3,7 @@
 
 defaults:
   run:
-    working-directory: /Source/DashboardTabApp
+    working-directory: Source/DashboardTabApp
 
 name: Build and deploy ASP.Net Core app to Azure Web App - hsdfrage-dashboard
 
